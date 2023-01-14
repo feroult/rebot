@@ -29,6 +29,7 @@ def generate_response(prompt, history):
 
 # Initialize the conversation history
 history = ""
+toggle_highlight = False
 
 # Start the conversation
 while True:
@@ -39,11 +40,16 @@ while True:
         history = ""
         continue
 
+    if prompt == "/hl":
+        print(f"\nhighligh {'on' if toggle_highlight else 'off'}.\n")
+        toggle_highlight = not toggle_highlight
+        continue
+
     history += f"{prompt}\n"
     response = generate_response(prompt, history)
 
     lexer = guess_lexer(response)
-    highlighted = pygments.highlight(response, lexer, formatter)
+    result = f"\n{pygments.highlight(response, lexer, formatter)}" if toggle_highlight else f"{response}\n"
 
-    print(f"\n{highlighted}")
+    print(f"\n{result}")
     history += f"{response}\n"

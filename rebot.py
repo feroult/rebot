@@ -1,7 +1,11 @@
 import openai
+import readline
 import os
 
 EOT = '\x05'
+
+readline.parse_and_bind('tab: complete')
+readline.parse_and_bind('set editing-mode vi')
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 

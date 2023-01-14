@@ -6,10 +6,11 @@ import pygments
 from pygments.formatters import TerminalFormatter
 from pygments.lexers import guess_lexer
 
+
 EOT = '\x05'
 
-readline.parse_and_bind('tab: complete')
-readline.parse_and_bind('set editing-mode vi')
+# readline.parse_and_bind('tab: complete')
+# readline.parse_and_bind('set editing-mode vi')
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
@@ -32,7 +33,8 @@ history = ""
 # Start the conversation
 while True:
     prompt = input("# ")
-    if prompt == EOT:
+
+    if prompt == "/clear":
         print("\nhistory cleared.\n")
         history = ""
         continue
@@ -42,7 +44,6 @@ while True:
 
     lexer = guess_lexer(response)
     highlighted = pygments.highlight(response, lexer, formatter)
-    # highlighted = highlight(response, PythonLexer(), TerminalFormatter())
 
     print(f"\n{highlighted}")
     history += f"{response}\n"

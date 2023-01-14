@@ -1,26 +1,31 @@
 import openai
-import sys
+import os
 
-# set the API key
-openai.api_key = "YOUR_API_KEY"
+EOT = '\x05'
 
-def generate_response(prompt):
-    # make the API request
+openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+def generate_response(prompt, history):
     response = openai.Completion.create(
-        engine="text-davinci-002",
-        prompt=prompt,
-        stop=None,
+        engine="text-davinci-003",
+        prompt=prompt + history,
+        max_tokens=2000,
+        temperature=0.7
     )
-    # return the generated response
     return response["choices"][0]["text"]
 
+# Initialize the conversation history
+history = ""
+
+# Start the conversation
 while True:
-    # get the question from the command line
-    prompt = input("What is your question? (Enter 'q' to quit) ")
+    prompt = input("# ")    
+    if prompt == EOT:
+        print("\nhistory cleared.\n")
+        history = ""
+        continue
 
-    if prompt.strip().lower() == 'q':
-        break
-
-    # generate the response
-    response = generate_response(prompt)
-    print(response)
+    history += f"{prompt}\n"
+    response = generate_response(prompt, history)
+    print(f"{response}\n")
+    history += f"{response}\n"

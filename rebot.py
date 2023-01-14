@@ -41,7 +41,7 @@ while True:
         continue
 
     if prompt == "/hl":
-        print(f"\nhighligh {'on' if toggle_highlight else 'off'}.\n")
+        print(f"\nhighlight {'on' if toggle_highlight else 'off'}.\n")
         toggle_highlight = not toggle_highlight
         continue
 

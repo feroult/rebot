@@ -35,21 +35,30 @@ toggle_highlight = False
 while True:
     prompt = input("# ")
 
-    if prompt == "/clear":
-        print("\nhistory cleared.\n")
+    if prompt == "/r":
+        print("\nchat restarted.\n")
         history = ""
         continue
 
     if prompt == "/hl":
-        print(f"\nhighlight {'on' if toggle_highlight else 'off'}.\n")
         toggle_highlight = not toggle_highlight
+        print(f"\nhighlight {'on' if toggle_highlight else 'off'}.\n")
         continue
 
     history += f"{prompt}\n"
     response = generate_response(prompt, history)
 
     lexer = guess_lexer(response)
-    result = f"\n{pygments.highlight(response, lexer, formatter)}" if toggle_highlight else f"{response}\n"
+    result = f"{pygments.highlight(response, lexer, formatter)}" if toggle_highlight else f"{response}"
 
-    print(f"\n{result}")
+    if len(result) == 0:
+        print()
+        continue
+
+    if result[0] != '\n':
+        print()
+    print(f"\033[1;32m{result}\033[0m")
+    if result[len(result)-1] != '\n':
+        print()
+
     history += f"{response}\n"

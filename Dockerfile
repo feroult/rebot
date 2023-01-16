@@ -1,10 +1,12 @@
-FROM python:3.8-slim
+FROM python:3.11-alpine
 
-RUN pip install openai pygments
+RUN apk add kbd
+
+RUN pip install openai pygments keyboard
 
 RUN mkdir /app
 WORKDIR /app
 
-COPY rebot.py .
+COPY app/* .
 
 CMD ["python", "rebot.py"]

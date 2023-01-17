@@ -16,6 +16,6 @@ def format(text, toggle_highlight):
         result = '\n' + result
     result = f"\033[1;32m{result}\033[0m"
     if result[len(result)-1] != '\n':
-        resukt = result + '\n'
+        result = result + '\n'
 
     return result

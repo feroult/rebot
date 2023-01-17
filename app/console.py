@@ -12,7 +12,7 @@ def _(event):
 session = PromptSession()
 
 
-def prompt(prefix):
+def prompt(prefix, multiline):
     answer = session.prompt(prefix,
-                            key_bindings=bindings, multiline=True)
+                            key_bindings=bindings, multiline=multiline)
     return answer

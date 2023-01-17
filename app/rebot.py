@@ -6,7 +6,6 @@ import formatter
 history = ""
 toggle_highlight = False
 
-# Start the conversation
 while True:
     prompt = console.prompt("# ")
 

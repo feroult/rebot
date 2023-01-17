@@ -1,8 +1,6 @@
-FROM python:3.11-alpine
+FROM python:3.11-slim
 
-RUN apk add kbd
-
-RUN pip install openai pygments keyboard
+RUN pip install openai pygments prompt_toolkit
 
 RUN mkdir /app
 WORKDIR /app

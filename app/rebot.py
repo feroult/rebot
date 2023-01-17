@@ -1,15 +1,16 @@
-import keyboard  
+from prompt_toolkit import PromptSession
+from prompt_toolkit.key_binding import KeyBindings
 
-print("hey")
+bindings = KeyBindings()
 
-if keyboard.is_pressed('q'):
-    print("ho")
+@bindings.add('escape', 'x')
+def _(event):
+    event.current_buffer.validate_and_handle()
 
-# # using module keyboard
-# while True:  # making a loop
-#     try:  # used try so that if user pressed other than the given key error will not be shown
-#         if keyboard.is_pressed('q'):  # if key 'q' is pressed 
-#             print('You Pressed A Key!')
-#             break  # finishing the loop
-#     except:
-#         break  # if user pressed a key other than the given key the loop will break
+session = PromptSession()
+
+
+if __name__ == '__main__':
+    while True:
+        answer = session.prompt('Give me some input: ', key_bindings=bindings, multiline=True)
+        print('You said: %s' % answer)

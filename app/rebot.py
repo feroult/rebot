@@ -19,6 +19,9 @@ while True:
     elif prompt == "/ml":
         toggle_multiline = not toggle_multiline
         print(f"\nmultiline {'on' if toggle_multiline else 'off'}.\n")
+    elif prompt == "/sm":
+        model = chat_gpt.switch_model()
+        print(f"\nactive model: {model}\n")
     else:
         response = chat_gpt.generate_response(prompt, history)
         print(formatter.format(response, toggle_highlight))
